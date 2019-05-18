@@ -1,7 +1,7 @@
 #include "AppDelegate.h"
-#include "GamePlayScene.hpp"
+#include "Scene_GamePlay/GamePlayScene.hpp"
 
-#include "EndingScene.hpp"
+#include "Scane_Ending/EndingScene.hpp"
 
 USING_NS_CC;
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 
-enum Direction;
+enum class Direction;
 enum RouteDirection;
 
 namespace myutil

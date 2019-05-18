@@ -1,5 +1,5 @@
 #include "Conversation.hpp"
-#include "Character.hpp"
+#include "GameObject/Character/Character.hpp"
 
 USING_NS_CC;
 

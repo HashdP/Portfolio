@@ -26,7 +26,7 @@ void StateAnimationSprite::RegisterStateAnimation(std::string key, bool reverse,
 			Sequence::create(
 				Animate::create(animation),
 				CallFuncN::create(endFunc),
-				CallFuncN::create([this](Node*) {SetAnimationState("None"); }),
+				CallFuncN::create([this](Node*) {ResetAnimationState(); }),
 				NULL
 			)
 		);

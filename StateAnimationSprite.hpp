@@ -39,18 +39,32 @@ public:
 	CREATE_FUNC(StateAnimationSprite);
 	virtual bool init() override;
 
-	//アニメーションステイト
-	inline void SetAnimationState(std::string animState) { this->animState = animState; }
+	/*
+	アニメーションステイトを入力待ちにする
+	*/
+	inline void ResetAnimationState() { this->animState = ""; }
 
-	//アニメーションを登録
+	/*
+	keyにanimationを追加する。
+	reverseがtrueならば、アニメーションは反転する。
+	endFuncがnullptrなら無限ループ、そうでないならばアニメーション終了時にendFuncが呼ばれる。
+	*/
 	void RegisterStateAnimation(std::string key, bool reverse, cocos2d::Animation* animation, const std::function<void(Node*)>& endFunc = nullptr);
 
-	//AnimFuncを設定する
+	/*
+	keyにanimFuncをセットする。
+	keyのアニメーションが呼ばれてからinterval秒後にanimFuncが呼ばれる
+	animFuncRepeatIntervalが正なら、その感覚で続けてanimFuncが呼ばれる
+	*/
 	void SetAnimFunc(std::string key, float interval, const std::function<void(cocos2d::Node*)>& animFunc, float animFuncRepeatInterval = -1.0f);
 
-	//アニメーションを変更する
+	/*
+	アニメーションを変更する
+	*/
 	void SetStateAnimation(std::string key);
 
-	//アニメーションが存在するかどうか
+	/*
+	アニメーションが存在するかどうか
+	*/
 	inline bool IsExistAnimation(std::string key) const { return animations.find(key) != animations.cend(); }
 };

@@ -1,6 +1,6 @@
 #include "myutil.hpp"
-#include "MapNode.hpp"
-#include "FieldObject.hpp"
+#include "Scene_GamePlay/MapNode.hpp"
+#include "GameObject/GameObject.hpp"
 
 USING_NS_CC;
 

@@ -1,6 +1,6 @@
 #include "MyScene.hpp"
-#include "InputManager.hpp"
-#include "GameManager.hpp"
+#include "Manager/InputManager.hpp"
+#include "Manager/GameManager.hpp"
 
 USING_NS_CC;
 
