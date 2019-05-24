@@ -1,13 +1,14 @@
 #pragma execution_character_set("utf-8")
 
-#include "GameObject/Character/Character.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Field/Area/Area.hpp"
+#include "Character.hpp"
+#include "ObjectLayer.hpp"
+#include "Floor.hpp"
+#include "Area.hpp"
 #include "myutil.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "SoundManager.hpp"
+#include "CharaData.hpp"
+#include "SoundComponent.hpp"
 
 USING_NS_CC;
 
@@ -188,8 +189,6 @@ void Character::SetFreezeMul(float freezeMul)
 
 void Character::SetState(std::string state, bool changeAnimation)
 {
-	this->state = state;
-
 	if (changeAnimation)
 	{
 		std::string dirAnimStr = state + "_" + myutil::GetDirectionStr(GetDirection());
@@ -204,7 +203,38 @@ void Character::SetState(std::string state, bool changeAnimation)
 			//ない場合
 			sprite->SetStateAnimation(state);
 		}
+
+		//サウンドを設定する
+		std::string playSoundStr = "";
+		if (stateSounds.find(dirAnimStr) != stateSounds.cend())
+		{
+			playSoundStr = dirAnimStr;
+		}
+		else if(stateSounds.find(state) != stateSounds.cend())
+		{
+			playSoundStr = state;
+		}
+
+		if (soundKey != playSoundStr)
+		{
+			//再生中のサウンドがあれば停止する
+			if (stateSounds.find(soundKey) != stateSounds.cend())
+			{
+				this->removeChild(stateSounds[soundKey].get());
+				stateSounds[soundKey]->Reset();
+			}
+
+			if (playSoundStr != "")
+			{
+				this->addChild(stateSounds[playSoundStr].get());
+				stateSounds[playSoundStr]->scheduleUpdate();
+			}
+
+			soundKey = playSoundStr;
+		}
 	}
+
+	this->state = state;
 }
 
 Node* Character::Speak(std::string text, float time, int fontSize)
@@ -247,4 +277,9 @@ Node* Character::Speak(std::string text, float time, int fontSize)
 	}
 
 	return hukidashi;
+}
+
+void Character::SetStateSound(std::string key, SoundComponent* soundComponent)
+{
+	stateSounds[key] = myutil::make_cocos_unique_ref<SoundComponent>(soundComponent);
 }

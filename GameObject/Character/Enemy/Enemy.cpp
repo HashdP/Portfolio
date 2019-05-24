@@ -1,8 +1,8 @@
-#include "GameObject/Character/Enemy/Enemy.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/HPGauge.hpp"
-#include "Scene_GamePlay/MoveAI.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "Enemy.hpp"
+#include "ObjectLayer.hpp"
+#include "HPGauge.hpp"
+#include "MoveAI.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 

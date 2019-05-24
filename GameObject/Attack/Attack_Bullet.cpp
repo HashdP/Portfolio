@@ -1,10 +1,10 @@
-#include "GameObject/Attack/Attack_Bullet.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "GameObject/Character/Character.hpp"
-#include "Scene_GamePlay/Light.hpp"
-#include "Factory/EffectFactory.hpp"
+#include "Attack_Bullet.hpp"
+#include "ObjectLayer.hpp"
+#include "Character.hpp"
+#include "Light.hpp"
+#include "EffectFactory.hpp"
 #include "myutil.hpp"
-#include "Manager/SoundManager.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 

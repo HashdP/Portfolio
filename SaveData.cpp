@@ -1,9 +1,9 @@
 #include "SaveData.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/MapLayer.hpp"
-#include "Item/Item.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Scene_GamePlay/Route.hpp"
+#include "ItemLayer.hpp"
+#include "MapLayer.hpp"
+#include "Item.hpp"
+#include "MapNode.hpp"
+#include "Route.hpp"
 #include "myutil.hpp"
 #include <Windows.h>
 #include <tchar.h>
@@ -23,19 +23,7 @@ SaveData* SaveData::getInstance()
 
 SaveData::SaveData()
 {
-	TCHAR tPath[1024];
-	GetModuleFileName(NULL, tPath, 1024);
-	(*_tcsrchr(tPath, '\\')) = '\0';
-
-#ifdef UNICODE
-	char path[1024];
-	wcstombs(path, tPath, 1024);
-	savePath = path;
-#else
-	savePath = tPath;
-#endif
-
-	savePath += "\\savedata.dat";
+	savePath = "savedata.dat";
 }
 
 void SaveData::init(ItemLayer* itemLayer, MapLayer* mapLayer)
@@ -171,9 +159,6 @@ void SaveData::SaveItem()
 Point SaveData::LoadInterruptionPoint()
 {
 	std::ifstream ifs(savePath, std::ios::in | std::ios::binary | std::ios::ate);
-	if (!ifs)
-		return 0;
-
 	ifs.seekg(sizeof(bool) + sizeof(int) + (sizeof(ItemID) + sizeof(int)) * 3 + (sizeof(ItemID) + sizeof(int)) * 24, std::ios_base::beg);
 	return ReadData<Point>(ifs);
 }

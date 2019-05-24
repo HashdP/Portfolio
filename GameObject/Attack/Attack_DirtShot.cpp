@@ -1,6 +1,6 @@
-#include "GameObject/Attack/Attack_DirtShot.hpp"
-#include "Factory/EffectFactory.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
+#include "Attack_DirtShot.hpp"
+#include "EffectFactory.hpp"
+#include "ObjectLayer.hpp"
 #include "myutil.hpp"
 
 USING_NS_CC;
@@ -80,7 +80,7 @@ void Attack_DirtShot::HitSparkle(const Vec2& position)
 float Attack_DirtShot::GetFieldPositionY()
 {
 	if (deleteInterval == 0.0f)
-		return getPositionY() + particle->getPositionY();
-	else
 		return getPositionY();
+	else
+		return getPositionY() + particle->getPositionY();
 }

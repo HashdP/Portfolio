@@ -1,20 +1,30 @@
 #pragma once
 #include "AudioEngine.h"
+#include "EnumWithString.hpp"
 #include <unordered_map>
 
-enum class SoundID
-{
+ENUM_WITH_STRING
+(
+	SoundID,
+
 	Background,
 	Player_Walk,
 	Player_Run,
 	Player_Punch,
 	Bound_Move,
 	Bound_Attack,
+	Bound_Shot,
+	Bound_Magic,
+	BadBat_Shot,
+	MossRat_Move,
+	MossRat_Attack,
+	MossRat_Magic,
 	HandGun_Shot,
 	AssaultGun_Shot,
 	AirShot,
 	HitSound_PlayerPunch,
 	HitSound_BoundPunch,
+	HitSound_MossRatPunch,
 	HitSound_Bullet,
 	HitSound_DirtShot,
 	GetItem,
@@ -34,7 +44,48 @@ enum class SoundID
 	Ending_Text_Appear,
 
 	Num
-};
+);
+
+//enum class SoundID
+//{
+//	Background,
+//	Player_Walk,
+//	Player_Run,
+//	Player_Punch,
+//	Bound_Move,
+//	Bound_Attack,
+//	Bound_Shot,
+//	Bound_Magic,
+//	BadBat_Shot,
+//	MossRat_Move,
+//	MossRat_Attack,
+//	MossRat_Magic,
+//	HandGun_Shot,
+//	AssaultGun_Shot,
+//	AirShot,
+//	HitSound_PlayerPunch,
+//	HitSound_BoundPunch,
+//	HitSound_MossRatPunch,
+//	HitSound_Bullet,
+//	HitSound_DirtShot,
+//	GetItem,
+//	UseItem,
+//	CannotUseItem,
+//	UseItem_Spray,
+//	ChangeItemCursor,
+//	ChangeWeaponCursor,
+//	ClimbLadder,
+//	Activate_Workshop,
+//	Activate_Map,
+//	Hukidashi_Appear,
+//
+//	Title_Play,
+//
+//	Ending_Result_Appear,
+//	Ending_Text_Appear,
+//
+//	Num
+//};
 
 class SoundManager
 {
@@ -44,7 +95,7 @@ private:
 
 	static SoundManager* instance;
 
-	std::unordered_map<SoundID, std::pair<std::string, float>> sounds;
+	std::unordered_map<int, std::pair<std::string, float>> sounds;
 
 	//SoundIDÇ∆ÇªÇÍÇ…ëŒâûÇ∑ÇÈFilePathÇ∆VolumeÇê›íËÇ∑ÇÈ
 	void PreLoad(SoundID soundID, std::string filePath, float volume);

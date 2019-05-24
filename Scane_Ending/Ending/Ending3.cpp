@@ -1,4 +1,4 @@
-#include "Scane_Ending/Ending/Ending3.hpp"
+#include "Ending3.hpp"
 
 USING_NS_CC;
 

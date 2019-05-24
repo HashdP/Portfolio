@@ -1,6 +1,6 @@
-#include "Manager/GameManager.hpp"
-#include "Scene_GamePlay/GamePlayScene.hpp"
-#include "Scane_Ending/EndingScene.hpp"
+#include "GameManager.hpp"
+#include "GamePlayScene.hpp"
+#include "EndingScene.hpp"
 
 USING_NS_CC;
 

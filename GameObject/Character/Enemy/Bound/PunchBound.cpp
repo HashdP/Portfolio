@@ -1,13 +1,13 @@
-#include "GameObject/Character/Enemy/Bound/PunchBound.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "GameObject/Attack/Attack_Punch.hpp"
-#include "Factory/ItemFactory.hpp"
+#include "PunchBound.hpp"
+#include "ObjectLayer.hpp"
+#include "Player.hpp"
+#include "Attack_Punch.hpp"
+#include "ItemFactory.hpp"
 #include "myutil.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Scene_GamePlay/MoveAI.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "MoveAI.hpp"
+#include "SoundManager.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 
@@ -71,7 +71,7 @@ bool PunchBound::init(ObjectLayer* objectLayer, CharacterID charaID, int level, 
 			animspeed * 3,
 			[this, dir, charaData](Node*)
 		{
-			SoundManager::getInstance()->Play2DSound(SoundID::Bound_Move);
+			SoundManager::getInstance()->Play2DSound(SoundID::Bound_Attack);
 
 			Attack_Punch* punch = Attack_Punch::create(GetCharaID(), GetObjectLayer(), getPosition(), dir, charaData["PunchAtk"], charaData["PunchFrz"], charaData["PunchKb"], SoundID::HitSound_BoundPunch);
 			GetObjectLayer()->AddFieldObject(punch);

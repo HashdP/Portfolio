@@ -1,4 +1,4 @@
-#include "Field/Wall/Wall_Boss.hpp"
+#include "Wall_Boss.hpp"
 
 USING_NS_CC;
 

@@ -1,7 +1,7 @@
 #pragma execution_character_set("utf-8")
 
-#include "Scene_GamePlay/Layer/GUILayer.hpp"
-#include "Scene_GamePlay/HPGauge.hpp"
+#include "GUILayer.hpp"
+#include "HPGauge.hpp"
 
 USING_NS_CC;
 
@@ -48,19 +48,6 @@ bool GUILayer::init()
 	itemBoxLabel->setAnchorPoint(Vec2(0, 0.5f));
 	this->addChild(itemBoxLabel);
 
-	Label* itemHowToLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 20), "（クリックで選択して、Eで使用）");
-	itemHowToLabel->setPosition(Vec2(70, -130));
-	itemHowToLabel->setAnchorPoint(Vec2(0, 0.5f));
-	this->addChild(itemHowToLabel);
-
-	//テキストを強調する
-	for (int i = 0; i < itemHowToLabel->getStringLength(); ++i)
-		if ((0 < i && i <= 4) || i == 11)
-		{
-			itemHowToLabel->getLetter(i)->setColor(Color3B::YELLOW);
-			itemHowToLabel->getLetter(i)->setScale(1.2f);
-		}
-
 	for (int i = 0; i < 24; ++i)
 	{
 		itemBoxes[i] = ui::Button::create("Images/GUI/item_box.png", "", "");
@@ -75,24 +62,6 @@ bool GUILayer::init()
 	this->addChild(itemBoxLight, 1);
 
 	//装備ボックス
-	Label* weaponBoxLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 32), "WEAPON");
-	weaponBoxLabel->setPosition(Vec2(-500, -230));
-	weaponBoxLabel->setAnchorPoint(Vec2(0, 0.5f));
-	this->addChild(weaponBoxLabel);
-
-	Label* weaponHowToLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 20), "（マウスホイールで武器を変更）");
-	weaponHowToLabel->setPosition(Vec2(-400, -230));
-	weaponHowToLabel->setAnchorPoint(Vec2(0, 0.5f));
-	this->addChild(weaponHowToLabel);
-
-	//テキストを強調する
-	for (int i = 0; i < weaponHowToLabel->getStringLength(); ++i)
-		if (0 < i && i <= 7)
-		{
-			weaponHowToLabel->getLetter(i)->setColor(Color3B::YELLOW);
-			weaponHowToLabel->getLetter(i)->setScale(1.2f);
-		}
-
 	for (int i = 0; i < 3; ++i)
 	{
 		weponBoxes[i] = ui::Button::create("Images/GUI/item_box.png", "", "");
@@ -108,15 +77,58 @@ bool GUILayer::init()
 	this->addChild(weaponBoxLight, 1);
 
 	//HPゲージ
+	Node* hpGauge = CreateGauge(HPGauge, Color3B::GREEN);
+	hpGauge->setPosition(-270, -170);
+	hpGauge->setScale(2.3f, 0.8f);
+	this->addChild(hpGauge);
+
+	/*
+	説明テキスト
+	*/
 	Label* hpLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 32), "HP");
 	hpLabel->setPosition(-500, -130);
 	hpLabel->setAnchorPoint(Vec2(0, 0.5f));
 	this->addChild(hpLabel);
 
-	Node* hpGauge = CreateGauge(HPGauge, Color3B::GREEN);
-	hpGauge->setPosition(-270, -170);
-	hpGauge->setScale(2.3f, 0.8f);
-	this->addChild(hpGauge);
+	Label* itemHowToLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 20), "（クリックで選択して、Eで使用）");
+	itemHowToLabel->setPosition(Vec2(70, -130));
+	itemHowToLabel->setAnchorPoint(Vec2(0, 0.5f));
+	for (int i = 0; i < itemHowToLabel->getStringLength(); ++i)
+	{
+		//テキストを強調する
+		if ((0 < i && i <= 4) || i == 11)
+		{
+			itemHowToLabel->getLetter(i)->setColor(Color3B::YELLOW);
+			itemHowToLabel->getLetter(i)->setScale(1.2f);
+		}
+	}
+	this->addChild(itemHowToLabel);
+
+	Label* openTutorialLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 18), "（Tを押して操作説明を開く）");
+	openTutorialLabel->setPosition(Vec2(240, -325));
+	openTutorialLabel->setAnchorPoint(Vec2(0, 0.5f));
+	openTutorialLabel->getLetter(1)->setColor(Color3B::YELLOW);
+	openTutorialLabel->getLetter(1)->setScale(1.2f);
+	this->addChild(openTutorialLabel);
+
+	Label* weaponBoxLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 32), "WEAPON");
+	weaponBoxLabel->setPosition(Vec2(-500, -230));
+	weaponBoxLabel->setAnchorPoint(Vec2(0, 0.5f));
+	this->addChild(weaponBoxLabel);
+
+	Label* weaponHowToLabel = Label::createWithTTF(TTFConfig("Fonts/misaki_gothic.ttf", 20), "（マウスホイールで武器を変更）");
+	weaponHowToLabel->setPosition(Vec2(-400, -230));
+	weaponHowToLabel->setAnchorPoint(Vec2(0, 0.5f));
+	for (int i = 0; i < weaponHowToLabel->getStringLength(); ++i)
+	{
+		//テキストを強調する
+		if (0 < i && i <= 7)
+		{
+			weaponHowToLabel->getLetter(i)->setColor(Color3B::YELLOW);
+			weaponHowToLabel->getLetter(i)->setScale(1.2f);
+		}
+	}
+	this->addChild(weaponHowToLabel);
 
 	return true;
 }
@@ -200,7 +212,7 @@ Node* GUILayer::CreateGauge(Sprite* &gaugeSprite, const Color3B& gaugeColor)
 
 Vec2 GUILayer::GetItemBoxPosition(int index)
 {
-	return Vec2(17 + 60 * (index % 8), -175 - 60 * (index / 8));
+	return Vec2(17 + 60 * (index % 8), -175 - 55 * (index / 8));
 }
 
 Vec2 GUILayer::GetWeaponBoxPosition(int index)

@@ -1,4 +1,4 @@
-#include "Scene_GamePlay/Route.hpp"
+#include "Route.hpp"
 #include "CocosRef.hpp"
 
 USING_NS_CC;

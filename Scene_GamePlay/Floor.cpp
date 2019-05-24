@@ -1,5 +1,5 @@
-#include "Scene_GamePlay/Floor.hpp"
-#include "GameObject/GameObject.hpp"
+#include "Floor.hpp"
+#include "GameObject.hpp"
 
 USING_NS_CC;
 

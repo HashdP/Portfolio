@@ -1,7 +1,7 @@
 #pragma execution_character_set("utf-8")
 
-#include "GameObject/Character/Enemy/NPC/Skull.hpp"
-#include "Field/Area/Area.hpp"
+#include "Skull.hpp"
+#include "Area.hpp"
 #include "StateAnimationSprite.hpp"
 #include "myutil.hpp"
 

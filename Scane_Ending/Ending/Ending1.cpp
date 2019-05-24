@@ -1,5 +1,5 @@
-#include "Scane_Ending/Ending/Ending1.hpp"
-#include "GameObject/Character/Enemy/NPC/Supervisor.hpp"
+#include "Ending1.hpp"
+#include "Supervisor.hpp"
 
 USING_NS_CC;
 

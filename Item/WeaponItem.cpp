@@ -1,12 +1,12 @@
-#include "Item/WeaponItem.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "GameObject/Attack/Attack_Bullet.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "WeaponItem.hpp"
+#include "Player.hpp"
+#include "Attack_Bullet.hpp"
+#include "ItemLayer.hpp"
+#include "ObjectLayer.hpp"
+#include "CharaData.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Factory/EffectFactory.hpp"
+#include "SoundManager.hpp"
+#include "EffectFactory.hpp"
 
 USING_NS_CC;
 

@@ -1,6 +1,6 @@
-#include "Scane_Ending/Ending/Ending0.hpp"
-#include "GameObject/Character/Enemy/Bound/PunchBound.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "Ending0.hpp"
+#include "PunchBound.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 

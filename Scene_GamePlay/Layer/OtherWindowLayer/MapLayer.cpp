@@ -1,10 +1,12 @@
-#include "Scene_GamePlay/Layer/OtherWindowLayer/MapLayer.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Scene_GamePlay/Route.hpp"
-#include "GameObject/Character/Character.hpp"
+#pragma execution_character_set("utf-8")
+
+#include "MapLayer.hpp"
+#include "MapNode.hpp"
+#include "Route.hpp"
+#include "ObjectLayer.hpp"
+#include "Character.hpp"
+#include "SoundManager.hpp"
 #include "myutil.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Manager/SoundManager.hpp"
 #include "SaveData.hpp"
 
 USING_NS_CC;
@@ -123,6 +125,11 @@ bool MapLayer::init()
 	background->setColor(Color3B::GREEN);
 	this->addChild(background);
 
+	//タイトル
+	Label* mainTitle = Label::createWithTTF(TTFConfig("Fonts/PixelMplus10-Regular.ttf", 60), "MAP");
+	mainTitle->setPosition(-550, 300);
+	this->addChild(mainTitle);
+
 	for (auto m : map)
 	{
 		Vec2 position = Vec2(m->GetPosition().x * 100, m->GetPosition().y * 50);
@@ -168,8 +175,7 @@ void MapLayer::OnVisible(ObjectLayer& objectLayer)
 	for (auto m : map)
 	{
 		//表示を変更する
-		bool isInit = true;
-		//bool isInit = m->IsInitFloorMap();
+		bool isInit = m->IsInitFloorMap();
 
 		mapSquare[m->GetPosition()]->setVisible(isInit);
 

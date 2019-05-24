@@ -11,6 +11,7 @@ enum InputCode
 	KEY_E,
 	KEY_T,
 	KEY_C,
+	KEY_Q,
 	KEY_SHIFT,
 	KEY_ESCAPE,
 	MOUSE_LEFT_FIELD,

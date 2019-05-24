@@ -6,6 +6,7 @@ enum EffectID
 	PunchHit,
 	BulletHit,
 	DirtShotHit,
+	FireBallHit,
 	MuzzleFlash,
 };
 
@@ -18,6 +19,10 @@ private:
 public:
 	virtual ~Effect() = default;
 
+	/*
+	duration•bŒã‚É©“®“I‚Éíœ‚·‚é
+	*/
 	virtual bool init(float duration);
+
 	virtual void update(float delta) override;
 };

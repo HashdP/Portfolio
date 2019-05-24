@@ -1,5 +1,5 @@
-#include "Item/Item.hpp"
-#include "Factory/ItemFactory.hpp"
+#include "Item.hpp"
+#include "ItemFactory.hpp"
 
 USING_NS_CC;
 

@@ -1,8 +1,8 @@
-#include "Field/Area/Area.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
+#include "Area.hpp"
+#include "MapNode.hpp"
 #include "myutil.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "GameObject/GameObject.hpp"
+#include "Floor.hpp"
+#include "GameObject.hpp"
 
 USING_NS_CC;
 

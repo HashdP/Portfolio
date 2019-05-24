@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject/Character/Character.hpp"
+#include "Character.hpp"
 
 class HPGauge;
 class MoveAI;

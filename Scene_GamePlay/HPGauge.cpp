@@ -1,5 +1,5 @@
-#include "Scene_GamePlay/HPGauge.hpp"
-#include "GameObject/Character/Character.hpp"
+#include "HPGauge.hpp"
+#include "Character.hpp"
 
 USING_NS_CC;
 

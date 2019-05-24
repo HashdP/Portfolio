@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject/Character/Enemy/Bound/Bound.hpp"
+#include "Bound.hpp"
 
 class PunchBound : public Bound
 {

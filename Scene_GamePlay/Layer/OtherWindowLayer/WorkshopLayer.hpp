@@ -1,7 +1,7 @@
 #pragma once
-#include "Scene_GamePlay/Layer/OtherWindowLayer/OtherWindowLayer.hpp"
+#include "OtherWindowLayer.hpp"
 #include "ui/CocosGUI.h"
-#include "Item/Item.hpp"
+#include "Item.hpp"
 #include <array>
 
 class ItemLayer;

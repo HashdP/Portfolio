@@ -1,14 +1,14 @@
-#include "GameObject/Character/Enemy/BadBat/BadBat.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Scene_GamePlay/HPGauge.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Field/Area/Area.hpp"
-#include "GameObject/Attack/Attack_Bullet.hpp"
-#include "Factory/ItemFactory.hpp"
+#include "BadBat.hpp"
+#include "Player.hpp"
+#include "HPGauge.hpp"
+#include "ObjectLayer.hpp"
+#include "Area.hpp"
+#include "Attack_Bullet.hpp"
+#include "ItemFactory.hpp"
 #include "myutil.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Scene_GamePlay/MoveAI.hpp"
-#include "Manager/SoundManager.hpp"
+#include "MoveAI.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 
@@ -65,6 +65,8 @@ bool BadBat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 			animspeed * 3,
 			[this, dir](Node*)
 		{
+			SoundManager::getInstance()->Play2DSound(SoundID::BadBat_Shot);
+
 			Attack_Bullet* bullet = Attack_Bullet::create(GetCharaID(), GetObjectLayer(), getPosition(), dir, 2, 0.3f, 10.0f, SoundID::HitSound_Bullet);
 			bullet->setColor(Color3B::MAGENTA);
 			GetObjectLayer()->AddFieldObject(bullet);

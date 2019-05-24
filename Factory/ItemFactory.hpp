@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "Item/Item.hpp"
+#include "Item.hpp"
 
 class DropItem;
 class ObjectLayer;

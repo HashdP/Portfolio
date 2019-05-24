@@ -1,8 +1,8 @@
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Scene_GamePlay/Layer/GUILayer.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Factory/ItemFactory.hpp"
-#include "Manager/SoundManager.hpp"
+#include "ItemLayer.hpp"
+#include "GUILayer.hpp"
+#include "ObjectLayer.hpp"
+#include "ItemFactory.hpp"
+#include "SoundManager.hpp"
 #include "SaveData.hpp"
 
 USING_NS_CC;
@@ -96,22 +96,22 @@ bool ItemLayer::init(GUILayer* guiLayer)
 	return true;
 }
 
-bool ItemLayer::IsExistItem(ItemID itemID, int num)
+int ItemLayer::IsExistItem(ItemID itemID, int num)
 {
 	//itemID‚ğnum‚¾‚¯Š‚µ‚Ä‚¢‚é‚È‚çtrue
-	for (unsigned i = 0; i < items.size(); ++i)
+	for (int i = items.size() - 1; 0 <= i; i--)
 	{
 		if (itemID == items[i]->GetID())
 		{
 			num -= items[i]->GetNum();
 
 			if (num <= 0)
-				return true;
+				return i;
 		}
 	}
 
 	//num‚¾‚¯Š‚µ‚Ä‚¢‚È‚©‚Á‚½‚ç
-	return false;
+	return -1;
 }
 
 bool ItemLayer::IsExistItemEmpty(ItemID itemID, int num)

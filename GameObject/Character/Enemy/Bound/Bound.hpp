@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject/Character/Enemy/Enemy.hpp"
+#include "Enemy.hpp"
 
 class Bound : public Enemy
 {

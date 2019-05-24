@@ -1,5 +1,5 @@
 #pragma once
-#include "Item/Item.hpp"
+#include "Item.hpp"
 
 class Item_Aid : public Item
 {

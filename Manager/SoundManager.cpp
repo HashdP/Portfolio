@@ -1,4 +1,5 @@
-#include "Manager/SoundManager.hpp"
+#include "SoundManager.hpp"
+#include <sqlite3.h>
 
 USING_NS_CC;
 using namespace experimental;
@@ -15,39 +16,32 @@ SoundManager* SoundManager::getInstance()
 
 void SoundManager::LoadSound()
 {
-	PreLoad(SoundID::Background,        "cave1.mp3", 0.3f);
-	PreLoad(SoundID::Player_Walk,       "walk-leather-shoes1.mp3", 0.2f);
-	PreLoad(SoundID::Player_Run,        "dash-leather-shoes1.mp3", 0.2f);
-	PreLoad(SoundID::Player_Punch,      "punch-swing1.mp3", 0.5f);
-	PreLoad(SoundID::Bound_Move,        "slime1.mp3", 0.5f);
-	PreLoad(SoundID::Bound_Attack,      "gum1.mp3", 0.3f);
-	PreLoad(SoundID::HandGun_Shot,      "M1 Garand Single-SoundBible.com-1941178963.mp3", 0.4f);
-	PreLoad(SoundID::AssaultGun_Shot,   "M4A1_Single-Kibblesbob-8540445.mp3", 0.1f);
-	PreLoad(SoundID::AirShot,           "airshot.mp3", 0.15f);
-	PreLoad(SoundID::HitSound_PlayerPunch, "punch-middle2.mp3", 0.5f);
-	PreLoad(SoundID::HitSound_BoundPunch, "se_maoudamashii_battle12.mp3", 0.3f);
-	PreLoad(SoundID::HitSound_Bullet,   "hitbullet.mp3", 1.0f);
-	PreLoad(SoundID::HitSound_DirtShot, "se_maoudamashii_battle18.mp3", 0.4f);
-	PreLoad(SoundID::GetItem,           "se_maoudamashii_system48.mp3", 0.3f);
-	PreLoad(SoundID::UseItem,           "equipment.mp3", 0.4f);
-	PreLoad(SoundID::CannotUseItem,     "cancel2.mp3", 0.4f);
-	PreLoad(SoundID::UseItem_Spray,     "spray.mp3", 0.4f);
-	PreLoad(SoundID::ChangeItemCursor,  "cursor8.mp3", 0.3f);
-	PreLoad(SoundID::ChangeWeaponCursor, "changeweapon.mp3", 0.3f);
-	PreLoad(SoundID::ClimbLadder,       "climbladder.mp3", 0.3f);
-	PreLoad(SoundID::Activate_Workshop, "jail-door-close1.mp3", 0.6f);
-	PreLoad(SoundID::Activate_Map,      "openmap.mp3", 1.0f);
-	PreLoad(SoundID::Hukidashi_Appear,  "cursor4.mp3", 1.0f);
+	//データベースからサウンドデータを読み込む
 
-	PreLoad(SoundID::Title_Play, "decision16.mp3", 0.3f);
+	sqlite3* sql3;
+	if (sqlite3_open("Data/SoundData.db", &sql3) == SQLITE_OK)
+	{
+		sqlite3_stmt* statement;
+		const char* command = "select * from SoundData";
 
-	PreLoad(SoundID::Ending_Result_Appear, "drum-japanese1.mp3", 0.4f);
-	PreLoad(SoundID::Ending_Text_Appear, "keyboard1.mp3", 0.4f);
+		sqlite3_prepare_v2(sql3, command, -1, &statement, &command);
+		while (sqlite3_step(statement) == SQLITE_ROW)
+		{
+			SoundID soundID = SoundID::ToIndex(reinterpret_cast<const char*>(sqlite3_column_text(statement, 0)));
+			std::string filePath = reinterpret_cast<const char*>(sqlite3_column_text(statement, 1));
+			float volume = sqlite3_column_double(statement, 2);
+
+			PreLoad(soundID, filePath, volume);
+		}
+
+		sqlite3_finalize(statement);
+		sqlite3_close(sql3);
+	}
 }
 
 void SoundManager::PreLoad(SoundID soundID, std::string filePath, float volume)
 {
-	sounds[soundID] = std::pair < std::string, float>(filePath, volume);
+	sounds[soundID] = std::pair <std::string, float>(filePath, volume);
 	cocos2d::experimental::AudioEngine::preload("Sound/" + filePath);
 }
 

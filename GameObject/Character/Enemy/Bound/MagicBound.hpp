@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject/Character/Enemy/Bound/Bound.hpp"
+#include "Bound.hpp"
 
 class MagicBound : public Bound
 {
@@ -8,6 +8,8 @@ private:
 
 	float deltatime;
 	float attackspan;
+
+	int atkJumpCounter;
 
 public:
 	virtual ~MagicBound() = default;

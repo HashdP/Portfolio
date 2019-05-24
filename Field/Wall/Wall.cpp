@@ -1,5 +1,5 @@
-#include "Field/Wall/Wall.hpp"
-#include "Scene_GamePlay/Light.hpp"
+#include "Wall.hpp"
+#include "Light.hpp"
 #include "myutil.hpp"
 
 USING_NS_CC;
@@ -14,7 +14,7 @@ bool Wall::init()
 
 void Wall::CreateLight(const Vec2& position)
 {
-	Texture2D* tex = Director::getInstance()->getTextureCache()->addImage("Field/light.png");
+	Texture2D* tex = Director::getInstance()->getTextureCache()->addImage("Images/Field/light.png");
 	Sprite* lightBase = Sprite::createWithTexture(tex);
 	lightBase->setPosition(position);
 	this->addChild(lightBase);

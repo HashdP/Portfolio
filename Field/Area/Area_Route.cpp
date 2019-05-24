@@ -1,6 +1,6 @@
-#include "Field/Area/Area_Route.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Scene_GamePlay/MoveAI.hpp"
+#include "Area_Route.hpp"
+#include "Floor.hpp"
+#include "MoveAI.hpp"
 
 USING_NS_CC;
 

@@ -1,13 +1,13 @@
-#include "GameObject/Character/Enemy/Bound/MagicBound.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Scene_GamePlay/HPGauge.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Field/Area/Area.hpp"
-#include "GameObject/Attack/Attack_FireBall.hpp"
-#include "Factory/ItemFactory.hpp"
+#include "MagicBound.hpp"
+#include "Player.hpp"
+#include "HPGauge.hpp"
+#include "ObjectLayer.hpp"
+#include "Area.hpp"
+#include "Attack_FireBall.hpp"
+#include "ItemFactory.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "SoundManager.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 
@@ -34,34 +34,46 @@ bool MagicBound::init(ObjectLayer* objectLayer, CharacterID charaID, int level, 
 
 	float animspeed = 0.1f;
 	Animation* atkAnim = myutil::CreateStateAnimation("Images/Character/bound.png", animspeed, 3, 6, 64, 64);
-	myutil::AddStateAnimation(atkAnim, "Images/Character/bound.png", 3, 6, 64, 64);
-	myutil::AddStateAnimation(atkAnim, "Images/Character/bound.png", 3, 6, 64, 64);
 
 	GetSprite()->RegisterStateAnimation("Attack", true, atkAnim, [this](Node*) { Freeze(0.5f); });
-
 	GetSprite()->SetAnimFunc(
 		"Attack",
-		animspeed * 18,
+		animspeed * 5,
 		[this, charaData](Node*)
 	{
-		Vec2 baseDif = Vec2::ZERO;
-		switch (GetDirection())
+		SoundManager::getInstance()->Play2DSound(SoundID::Bound_Move);
+
+		if(++atkJumpCounter == 3)
 		{
-		case Direction::Back:  baseDif = Vec2(0, 20); break;
-		case Direction::Left:  baseDif = Vec2(-20, 0); break;
-		case Direction::Front: baseDif = Vec2(0, -20);  break;
-		case Direction::Right: baseDif = Vec2(20, 0);  break;
+			SoundManager::getInstance()->Play2DSound(SoundID::Bound_Magic);
+
+			//三回ジャンプした着地時に攻撃を出現させる
+			Vec2 baseDif = Vec2::ZERO;
+			switch (GetDirection())
+			{
+			case Direction::Back:  baseDif = Vec2(0, 20); break;
+			case Direction::Left:  baseDif = Vec2(-20, 0); break;
+			case Direction::Front: baseDif = Vec2(0, -20);  break;
+			case Direction::Right: baseDif = Vec2(20, 0);  break;
+			}
+
+			for (int i = 0; i < charaData["MagicNum"]; ++i)
+			{
+				Vec2 dif;
+				if (i == 0)      dif = baseDif;
+				else if (i == 1) dif = Vec2(-baseDif.y, baseDif.x);
+				else if (i == 2) dif = Vec2(baseDif.y, -baseDif.x);
+
+				Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + dif, GetDirection(), charaData["MagicDmg"], 0.0f, 0.0f, SoundID::HitSound_DirtShot);
+				GetObjectLayer()->AddFieldObject(shot);
+			}
+
+			atkJumpCounter = 0;
 		}
-
-		for (int i = 0; i < charaData["MagicNum"]; ++i)
+		else
 		{
-			Vec2 dif;
-			if (i == 0)      dif = baseDif;
-			else if (i == 1) dif == Vec2(-baseDif.y, baseDif.x);
-			else if (i == 2) dif == Vec2(baseDif.y, -baseDif.x);
-
-			Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + dif, GetDirection(), charaData["MagicDmg"], 0.0f, 0.0f, SoundID::HitSound_Bullet);
-			GetObjectLayer()->AddFieldObject(shot);
+			GetSprite()->ResetAnimationState();
+			SetState("Attack");
 		}
 	});
 
@@ -69,6 +81,8 @@ bool MagicBound::init(ObjectLayer* objectLayer, CharacterID charaID, int level, 
 
 	deltatime = random<float>(0.0f, 3.0f);
 	attackspan = 3.0f;
+
+	atkJumpCounter = 0;
 
 	return true;
 }

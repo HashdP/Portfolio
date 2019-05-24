@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 
-enum class SoundID;
+class SoundID;
 class ObjectLayer;
 
 class OtherWindowLayer : public cocos2d::Layer
@@ -11,7 +11,7 @@ private:
 	static bool windowVisible;
 
 	//ウィンドウを開いたときの音
-	SoundID openWindowSound;
+	int openWindowSound;
 
 	virtual void OnVisible(ObjectLayer& objectLayer) {}
 

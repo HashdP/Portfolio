@@ -1,4 +1,4 @@
-#include "Effect/Effect.hpp"
+#include "Effect.hpp"
 
 bool Effect::init(float duration)
 {

@@ -1,9 +1,9 @@
-#include "Item/Item_Spray.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
+#include "Item_Spray.hpp"
+#include "Player.hpp"
+#include "ObjectLayer.hpp"
 #include "myutil.hpp"
-#include "Scene_GamePlay/Route.hpp"
-#include "Manager/SoundManager.hpp"
+#include "Route.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 

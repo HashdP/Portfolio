@@ -1,6 +1,6 @@
-#include "Scene_GamePlay/Layer/OtherWindowLayer/OtherWindowLayer.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Manager/SoundManager.hpp"
+#include "OtherWindowLayer.hpp"
+#include "ObjectLayer.hpp"
+#include "SoundManager.hpp"
 
 bool OtherWindowLayer::windowVisible = false;
 

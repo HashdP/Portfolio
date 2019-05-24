@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "CocosRef.hpp"
-#include "Field/Area/Area.hpp"
+#include "Area.hpp"
 #include <array>
 
 enum RouteDirection

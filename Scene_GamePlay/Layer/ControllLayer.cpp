@@ -1,14 +1,14 @@
-#include "Scene_GamePlay/Layer/ControllLayer.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/MapLayer.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/TutorialLayer.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Scene_GamePlay/Layer/GUILayer.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Field/Area/Area.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Manager/InputManager.hpp"
-#include "Manager/SoundManager.hpp"
+#include "ControllLayer.hpp"
+#include "MapLayer.hpp"
+#include "TutorialLayer.hpp"
+#include "ObjectLayer.hpp"
+#include "ItemLayer.hpp"
+#include "GUILayer.hpp"
+#include "Floor.hpp"
+#include "Area.hpp"
+#include "Player.hpp"
+#include "InputManager.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 
@@ -61,7 +61,7 @@ void ControllLayer::update(float delta)
 	if (isRunningUpdate)
 	{
 		Player& player = objectLayer->GetPlayer();
-		if (player.GetState() != "Attack0" && player.GetState() != "Attack1" && player.GetState() != "Attack2")
+		if (!player.IsFreeze() && player.GetState() != "Attack0" && player.GetState() != "Attack1" && player.GetState() != "Attack2")
 		{
 			//ˆÚ“®•ûŒü
 			Vec2 dirVec = Vec2::ZERO;
@@ -116,6 +116,16 @@ void ControllLayer::update(float delta)
 			Item currentItem = itemLayer->GetItem(itemIndex);
 			ItemFactory::getInstance()->CreateDropItem(objectLayer, objectLayer->GetConstPlayer().getPosition() + dirVec * 20, currentItem.GetID(), currentItem.GetNum());
 			itemLayer->RemoveItem(itemIndex);
+		}
+
+		//‰ñ•œ‚·‚éi‰ñ•œ–ò‚ðŠŽ‚µ‚Ä‚¢‚éê‡j
+		if (InputManager::getInstance()->GetInputDown(KEY_Q))
+		{
+			int index = itemLayer->IsExistItem(ItemID::Aid, 1);
+			if (index != -1)
+			{
+				itemLayer->UseItem(index, weaponIndex, objectLayer);
+			}
 		}
 	}
 

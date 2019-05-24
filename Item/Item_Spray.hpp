@@ -1,6 +1,6 @@
 #pragma once
-#include "Item/Item.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
+#include "Item.hpp"
+#include "MapNode.hpp"
 
 enum RouteDirection;
 enum class RouteState;

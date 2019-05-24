@@ -1,7 +1,7 @@
-#include "Scene_GamePlay/MoveAI.hpp"
-#include "Field/Area/Area.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "GameObject/GameObject.hpp"
+#include "MoveAI.hpp"
+#include "Area.hpp"
+#include "Floor.hpp"
+#include "GameObject.hpp"
 #include "myutil.hpp"
 
 USING_NS_CC;

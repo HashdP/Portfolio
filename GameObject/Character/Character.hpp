@@ -1,11 +1,14 @@
 #pragma once
-#include "GameObject/GameObject.hpp"
+#include "GameObject.hpp"
+#include "CocosRef.hpp"
+#include "SoundComponent.hpp"
+#include "EnumWithString.hpp"
 
 class StateAnimationSprite;
 class CharaData;
 
-enum class CharacterID
-{
+ENUM_CLASS_WITH_STRING(
+	CharacterID,
 	Player,
 	PunchBound,
 	PunchBound2,
@@ -21,7 +24,7 @@ enum class CharacterID
 	Supervisor,
 	Skull,
 	None
-};
+);
 
 class Character : public GameObject
 {
@@ -56,6 +59,12 @@ private:
 	//ダメージを受けるかどうか
 	bool ghost = false;
 
+	//サウンドキー
+	std::string soundKey;
+
+	//ステイトサウンド
+	std::unordered_map<std::string, myutil::cocos_unique_ref<SoundComponent>> stateSounds;
+
 public:
 	virtual ~Character() = default;
 
@@ -76,6 +85,9 @@ public:
 	
 	//freezeTimeだけフリーズさせる
 	void Freeze(float freezeTime);
+
+	//フリーズしているかどうか
+	bool IsFreeze() { return 0.0f < freezeTime; }
 
 	//ダメージを与える
 	virtual void Damage(int damage, float freeze, const cocos2d::Vec2& knockBack);
@@ -107,4 +119,7 @@ public:
 
 	//吹き出しテキスト
 	cocos2d::Node* Speak(std::string text, float time, int fontSize = 45);
+
+	//ステイトサウンドを設定する
+	void SetStateSound(std::string key, SoundComponent* soundComponent);
 };

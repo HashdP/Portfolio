@@ -1,9 +1,9 @@
 #pragma execution_character_set("utf-8")
 
-#include "Scene_GamePlay/Layer/OtherWindowLayer/WorkshopLayer.hpp"
-#include "Factory/ItemFactory.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Manager/SoundManager.hpp"
+#include "WorkshopLayer.hpp"
+#include "ItemLayer.hpp"
+#include "ItemFactory.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 
@@ -234,7 +234,7 @@ bool WorkshopLayer::SelectCreateItem(int index)
 	{
 	case ItemID::Weapon_HandGun:
 		SetNeedItem(ItemID::HandGunParts, 1);
-		SetNeedItem(ItemID::Branch, 10);
+		SetNeedItem(ItemID::Branch, 5);
 		SetNeedItem(ItemID::IronScrap, 10);
 		break;
 
@@ -246,7 +246,7 @@ bool WorkshopLayer::SelectCreateItem(int index)
 
 	case ItemID::Weapon_AssaultRifle:
 		SetNeedItem(ItemID::AssaultRifleParts, 1);
-		SetNeedItem(ItemID::Branch, 30);
+		SetNeedItem(ItemID::Branch, 20);
 		SetNeedItem(ItemID::IronScrap, 30);
 		break;
 
@@ -289,7 +289,7 @@ bool WorkshopLayer::SelectCreateItem(int index)
 	{
 		if (nItem.itemID != ItemID::None)
 		{
-			if (!itemLayer->IsExistItem(nItem.itemID, nItem.num))
+			if (itemLayer->IsExistItem(nItem.itemID, nItem.num) == -1)
 			{
 				nItem.node->getChildByName<Label*>("needValue")->setColor(Color3B::RED);
 				canCreate = false;

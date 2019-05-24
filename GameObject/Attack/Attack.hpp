@@ -1,8 +1,9 @@
 #pragma once
-#include "GameObject/GameObject.hpp"
+#include "GameObject.hpp"
+#include "SoundManager.hpp"
 
 enum class CharacterID;
-enum class SoundID;
+class SoundID;
 class Character;
 
 //攻撃を作成するマクロ
@@ -38,7 +39,7 @@ private:
 	float knockback = 0.0f;
 
 	//ヒット音
-	SoundID hitSoundID;
+	int hitSoundID;
 
 	bool HitAttack(std::function<bool(const Character&)> func);
 

@@ -1,9 +1,9 @@
-#include "GameObject/DropItem.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Factory/ItemFactory.hpp"
-#include "Manager/SoundManager.hpp"
+#include "DropItem.hpp"
+#include "ObjectLayer.hpp"
+#include "Player.hpp"
+#include "ItemLayer.hpp"
+#include "ItemFactory.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 

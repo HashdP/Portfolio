@@ -1,9 +1,9 @@
 #pragma execution_character_set("utf-8")
 
-#include "Scene_GamePlay/Layer/TitleLayer.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/Layer/GUILayer.hpp"
-#include "Manager/SoundManager.hpp"
+#include "TitleLayer.hpp"
+#include "ObjectLayer.hpp"
+#include "GUILayer.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 

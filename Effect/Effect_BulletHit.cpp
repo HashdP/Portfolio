@@ -1,5 +1,5 @@
-#include "Effect/Effect_BulletHit.hpp"
-#include "Scene_GamePlay/Light.hpp"
+#include "Effect_BulletHit.hpp"
+#include "Light.hpp"
 
 USING_NS_CC;
 

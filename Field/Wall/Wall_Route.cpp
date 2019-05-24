@@ -1,4 +1,4 @@
-#include "Field/Wall/Wall_Route.hpp"
+#include "Wall_Route.hpp"
 
 USING_NS_CC;
 

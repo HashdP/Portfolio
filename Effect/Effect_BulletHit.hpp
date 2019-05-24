@@ -1,5 +1,5 @@
 #pragma once
-#include "Effect/Effect.hpp"
+#include "Effect.hpp"
 
 class Effect_BulletHit : public Effect
 {

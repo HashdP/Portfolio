@@ -1,7 +1,7 @@
-#include "GameObject/Attack/Attack_FireBall.hpp"
-#include "Factory/EffectFactory.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "GameObject/Character/Player.hpp"
+#include "Attack_FireBall.hpp"
+#include "EffectFactory.hpp"
+#include "ObjectLayer.hpp"
+#include "Player.hpp"
 
 USING_NS_CC;
 
@@ -80,13 +80,13 @@ void Attack_FireBall::update(float delta)
 
 void Attack_FireBall::HitSparkle(const Vec2& position)
 {
-	EffectFactory::getInstance()->CreateEffect(GetObjectLayer(), EffectID::DirtShotHit)->setPosition(position);
+	EffectFactory::getInstance()->CreateEffect(GetObjectLayer(), EffectID::FireBallHit)->setPosition(position);
 }
 
 float Attack_FireBall::GetFieldPositionY()
 {
 	if (interval <= 0.0f)
-		return getPositionY() + particle->getPositionY();
-	else
 		return getPositionY();
+	else
+		return getPositionY() + particle->getPositionY();
 }

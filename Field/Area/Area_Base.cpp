@@ -1,8 +1,8 @@
 #pragma execution_character_set("utf-8")
 
-#include "Field/Area/Area_Base.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/WorkshopLayer.hpp"
+#include "Area_Base.hpp"
+#include "Floor.hpp"
+#include "WorkshopLayer.hpp"
 
 USING_NS_CC;
 

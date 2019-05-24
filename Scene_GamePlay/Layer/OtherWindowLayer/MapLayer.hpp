@@ -1,5 +1,5 @@
 #pragma once
-#include "Scene_GamePlay/Layer/OtherWindowLayer/OtherWindowLayer.hpp"
+#include "OtherWindowLayer.hpp"
 
 enum RouteDirection;
 enum class RouteState;

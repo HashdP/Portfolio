@@ -1,20 +1,20 @@
 #pragma execution_character_set("utf-8")
 
-#include "Scane_Ending/Layer/EndingLayer.hpp"
-#include "Scane_Ending/Ending/Ending0.hpp"
-#include "Scane_Ending/Ending/Ending1.hpp"
-#include "Scane_Ending/Ending/Ending2.hpp"
-#include "Scane_Ending/Ending/Ending3.hpp"
-#include "Scane_Ending/Ending/Ending4.hpp"
+#include "EndingLayer.hpp"
+#include "Ending0.hpp"
+#include "Ending1.hpp"
+#include "Ending2.hpp"
+#include "Ending3.hpp"
+#include "Ending4.hpp"
 #include "SaveData.hpp"
-#include "Manager/InputManager.hpp"
-#include "Scene_GamePlay/GamePlayScene.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "GameObject/Character/Enemy/NPC/Skull.hpp"
-#include "Manager/SoundManager.hpp"
+#include "InputManager.hpp"
+#include "GamePlayScene.hpp"
+#include "Player.hpp"
+#include "Skull.hpp"
+#include "SoundManager.hpp"
 #include "myutil.hpp"
-#include "Manager/GameManager.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "GameManager.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 
@@ -81,7 +81,7 @@ bool EndingLayer::init(int endingNumber)
 	mainCharaSprite->setPositionY(-30);
 	fieldNode->addChild(mainCharaSprite);
 
-	ifs.open(FileUtils::getInstance()->fullPathForFilename("Text/ending" + std::to_string(endingNumber) + ".txt"));
+	ifs.open("Text/ending" + std::to_string(endingNumber) + ".txt");
 
 	//1‰ñØ‚èŽÌ‚Ä
 	std::string str;
@@ -137,6 +137,9 @@ bool EndingLayer::init(int endingNumber)
 		SaveData::getInstance()->SaveEndingNumber(endingNumber == 4 ? 0 : endingNumber);
 		SaveData::getInstance()->SaveInterruptionPoint(Point::ZERO);
 		SaveData::getInstance()->SavePlayerPosition(myutil::ConvertFloorPosToPos(12, 3));
+		SaveData::getInstance()->SaveItem();
+		SaveData::getInstance()->SaveWeapon();
+		SaveData::getInstance()->SaveMap();
 	}
 
 	return true;
@@ -148,9 +151,6 @@ void EndingLayer::update(float delta)
 	{
 		if (animEnd)
 		{
-			SaveData::getInstance()->SaveItem();
-			SaveData::getInstance()->SaveWeapon();
-			SaveData::getInstance()->SaveMap();
 			SaveData::getInstance()->finalize();
 			GameManager::getInstance()->ReplaceGamePlayScene();
 			processActive = false;

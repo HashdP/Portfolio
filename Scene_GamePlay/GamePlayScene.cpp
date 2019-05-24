@@ -1,17 +1,17 @@
-#include "Scene_GamePlay/GamePlayScene.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/Layer/GUILayer.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/MapLayer.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/WorkshopLayer.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/TutorialLayer.hpp"
-#include "Scene_GamePlay/Layer/TitleLayer.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
+#include "GamePlayScene.hpp"
+#include "ObjectLayer.hpp"
+#include "GUILayer.hpp"
+#include "MapLayer.hpp"
+#include "WorkshopLayer.hpp"
+#include "TutorialLayer.hpp"
+#include "TitleLayer.hpp"
+#include "ItemLayer.hpp"
+#include "ControllLayer.hpp"
+#include "DropItem.hpp"
+#include "Player.hpp"
 #include "MyScene.hpp"
-#include "Scene_GamePlay/Layer/ControllLayer.hpp"
-#include "GameObject/DropItem.hpp"
-#include "Factory/ItemFactory.hpp"
-#include "Manager/SoundManager.hpp"
-#include "GameObject/Character/Player.hpp"
+#include "ItemFactory.hpp"
+#include "SoundManager.hpp"
 #include "SaveData.hpp"
 
 USING_NS_CC;
@@ -63,8 +63,8 @@ Scene* GamePlayScene::create()
 	//セーブデータの初期化
 	SaveData::getInstance()->init(itemLayer, mapLayer);
 
-	Vec2 playerPosition = SaveData::getInstance()->LoadPlayerPosition();
 	Point interruptionPoint = SaveData::getInstance()->LoadInterruptionPoint();
+	Vec2 playerPosition = SaveData::getInstance()->LoadPlayerPosition();
 	objectLayer->CreateField(playerPosition, mapLayer->GetMap(interruptionPoint), true);
 	objectLayer->GetPlayer().SetGUILayer(GUILayer);
 	if (interruptionPoint == Point::ZERO)

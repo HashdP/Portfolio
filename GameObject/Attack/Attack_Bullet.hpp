@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject/Attack/Attack.hpp"
+#include "Attack.hpp"
 
 class Attack_Bullet : public Attack
 {

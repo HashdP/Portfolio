@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "GameObject/Character/Enemy/Enemy.hpp"
+#include "Enemy.hpp"
 
 class ObjectLayer;
 

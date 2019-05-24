@@ -1,13 +1,13 @@
 #pragma execution_character_set("utf-8")
 
-#include "Field/Area/Area_Boss.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Scene_GamePlay/MoveAI.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Scane_Ending/EndingScene.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Manager/GameManager.hpp"
+#include "Area_Boss.hpp"
+#include "Floor.hpp"
+#include "MoveAI.hpp"
+#include "ObjectLayer.hpp"
+#include "MapNode.hpp"
+#include "EndingScene.hpp"
+#include "SoundManager.hpp"
+#include "GameManager.hpp"
 
 USING_NS_CC;
 

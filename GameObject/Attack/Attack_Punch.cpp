@@ -1,6 +1,6 @@
-#include "GameObject/Attack/Attack_Punch.hpp"
-#include "Factory/EffectFactory.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
+#include "Attack_Punch.hpp"
+#include "EffectFactory.hpp"
+#include "ObjectLayer.hpp"
 
 USING_NS_CC;
 

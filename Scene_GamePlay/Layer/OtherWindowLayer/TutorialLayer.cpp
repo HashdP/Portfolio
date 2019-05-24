@@ -1,7 +1,7 @@
 #pragma execution_character_set("utf-8")
 
-#include "Scene_GamePlay/Layer/OtherWindowLayer/TutorialLayer.hpp"
-#include "Manager/SoundManager.hpp"
+#include "TutorialLayer.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 
@@ -28,12 +28,13 @@ bool TutorialLayer::init()
 	howto_texts.emplace_back("左クリック", "攻撃／アイテムの選択");
 	howto_texts.emplace_back("E", "選択中のアイテムを使用／インタラクト");
 	howto_texts.emplace_back("C", "選択中のアイテムを捨てる");
+	howto_texts.emplace_back("Q", "回復する（回復薬を所持している場合）");
 	howto_texts.emplace_back("マウスホイール", "武器を変更");
 	howto_texts.emplace_back("M", "マップを開く");
 
 	for (unsigned i = 0; i < howto_texts.size(); ++i)
 	{
-		float y = size.height / 2 - 180 - 70 * i;
+		float y = size.height / 2 - 180 - 65 * i;
 
 		Label* howto_key = Label::createWithTTF(TTFConfig("Fonts/PixelMplus10-Regular.ttf", 40), howto_texts[i].first);
 		howto_key->setPosition(-320, y);

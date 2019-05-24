@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "Factory/ItemFactory.hpp"
+#include "ItemFactory.hpp"
 #include <array>
 
 class ObjectLayer;

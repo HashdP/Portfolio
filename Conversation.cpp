@@ -1,5 +1,5 @@
 #include "Conversation.hpp"
-#include "GameObject/Character/Character.hpp"
+#include "Character.hpp"
 
 USING_NS_CC;
 
@@ -27,7 +27,7 @@ bool Conversation::init(std::string file, Character* chara, float interval)
 
 	scheduleUpdate();
 
-	ifs.open(FileUtils::getInstance()->fullPathForFilename(file));
+	ifs.open(file);
 	//Ø‚èÌ‚Ä
 	std::string str;
 	std::getline(ifs, str);

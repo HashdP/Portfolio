@@ -1,7 +1,7 @@
-#include "GameObject/Attack/Attack.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Manager/SoundManager.hpp"
+#include "Attack.hpp"
+#include "ObjectLayer.hpp"
+#include "Player.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Field/Area/Area.hpp"
+#include "Area.hpp"
 
 class ObjectLayer;
 class WorkshopLayer;

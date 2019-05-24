@@ -1,6 +1,6 @@
 #include "myutil.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "GameObject/GameObject.hpp"
+#include "MapNode.hpp"
+#include "GameObject.hpp"
 
 USING_NS_CC;
 
@@ -37,27 +37,50 @@ namespace myutil
 		Vec2 difVec = toPosition - fromPosition;
 		difVec.normalize();
 
+		float test = std::cos(M_PI * 1 / 8);
+
 		Vec2 retVec = Vec2::ZERO;
-		if (difVec.x < std::cos(180 * 1 / 8))
+		if (difVec.x < std::cos(M_PI * 7 / 8))
 		{
 			retVec = Vec2(-1, 0);
 		}
-		else if (std::cos(180 * 1 / 8) <= difVec.x && difVec.x < std::cos(180 * 3 / 8))
+		else if (std::cos(M_PI * 7 / 8) <= difVec.x && difVec.x < std::cos(M_PI * 5 / 8))
 		{
 			retVec = Vec2(-1, difVec.y < 0 ? -1 : 1);
 		}
-		else if (std::cos(180 * 3 / 8) <= difVec.x && difVec.x < std::cos(180 * 5 / 8))
+		else if (std::cos(M_PI * 5 / 8) <= difVec.x && difVec.x < std::cos(M_PI * 3 / 8))
 		{
 			retVec = Vec2(0, difVec.y < 0 ? -1 : 1);
 		}
-		else if (std::cos(180 * 5 / 8) <= difVec.x && difVec.x < std::cos(180 * 7 / 8))
+		else if (std::cos(M_PI * 5 / 8) <= difVec.x && difVec.x < std::cos(M_PI * 3 / 8))
 		{
 			retVec = Vec2(1, difVec.y < 0 ? -1 : 1);
 		}
-		else if (std::cos(180 * 7 / 8) <= difVec.x)
+		else
 		{
 			retVec = Vec2(1, 0);
 		}
+
+		//if (difVec.x < std::cos(M_PI * 1 / 8))
+		//{
+		//	retVec = Vec2(-1, 0);
+		//}
+		//else if (std::cos(M_PI * 1 / 8) <= difVec.x && difVec.x < std::cos(M_PI * 3 / 8))
+		//{
+		//	retVec = Vec2(-1, difVec.y < 0 ? -1 : 1);
+		//}
+		//else if (std::cos(M_PI * 3 / 8) <= difVec.x && difVec.x < std::cos(M_PI * 5 / 8))
+		//{
+		//	retVec = Vec2(0, difVec.y < 0 ? -1 : 1);
+		//}
+		//else if (std::cos(M_PI * 5 / 8) <= difVec.x && difVec.x < std::cos(M_PI * 7 / 8))
+		//{
+		//	retVec = Vec2(1, difVec.y < 0 ? -1 : 1);
+		//}
+		//else if (std::cos(M_PI * 7 / 8) <= difVec.x)
+		//{
+		//	retVec = Vec2(1, 0);
+		//}
 
 		return retVec.getNormalized();
 	}

@@ -1,9 +1,9 @@
-#include "GameObject/Character/Enemy/Bound/Bound.hpp"
-#include "Scene_GamePlay/HPGauge.hpp"
+#include "Bound.hpp"
+#include "HPGauge.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Manager/SoundManager.hpp"
+#include "SoundManager.hpp"
 #include "myutil.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 
@@ -16,7 +16,8 @@ bool Bound::init(ObjectLayer* objectLayer, CharacterID charaID, int level, const
 
 	GetSprite()->RegisterStateAnimation("Stay", false, myutil::CreateStateAnimation("Images/Character/bound.png", 0.3f, 0, 3, 64, 64));
 	GetSprite()->RegisterStateAnimation("Move", false, myutil::CreateStateAnimation("Images/Character/bound.png", 0.2f, 3, 6, 64, 64));
-	GetSprite()->SetAnimFunc("Move", 1.2f, [](Node*) { SoundManager::getInstance()->Play2DSound(SoundID::Bound_Attack); }, 1.2f);
+
+	SetStateSound("Move", SoundComponent::create(SoundID::Bound_Move, 1.2f, 1.2f));
 
 	GetSprite()->setAnchorPoint(Vec2(0.5f, 0.42f));
 

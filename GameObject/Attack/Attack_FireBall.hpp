@@ -1,6 +1,6 @@
 #pragma once
-#include "GameObject/Attack/Attack.hpp"
-#include "Scene_GamePlay/MoveAI.hpp"
+#include "Attack.hpp"
+#include "MoveAI.hpp"
 
 class Attack_FireBall : public Attack
 {

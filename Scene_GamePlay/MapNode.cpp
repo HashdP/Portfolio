@@ -1,8 +1,9 @@
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "GameObject/Character/Character.hpp"
+#include "MapNode.hpp"
+#include "Floor.hpp"
+#include "Route.hpp"
+#include "Character.hpp"
 #include "myutil.hpp"
-#include "Scene_GamePlay/Route.hpp"
+#include <sqlite3.h>
 
 USING_NS_CC;
 
@@ -40,37 +41,23 @@ void MapNode::SetRouteState(RouteDirection routeDir, RouteState routeState)
 CharacterID MapNode::GetThisStageRandomEnemy() const
 {
 	std::vector<CharacterID> stageEnemy;
-	switch (routeLevel)
+
+	sqlite3* sql3;
+	if (sqlite3_open("Data/StageData.db", &sql3) == SQLITE_OK)
 	{
-	case 1:
-		stageEnemy.emplace_back(CharacterID::PunchBound);
-		break;
+		sqlite3_stmt* statement;
+		std::string cmd = "select * from Level" + std::to_string(routeLevel);
+		const char* command = cmd.c_str();
 
-	case 2:
-		stageEnemy.emplace_back(CharacterID::PunchBound);
-		stageEnemy.emplace_back(CharacterID::ShotBound);
-		stageEnemy.emplace_back(CharacterID::MagicBound);
-		break;
+		sqlite3_prepare_v2(sql3, command, -1, &statement, &command);
+		while (sqlite3_step(statement) == SQLITE_ROW)
+		{
+			std::string enemyIDStr = reinterpret_cast<const char*>(sqlite3_column_text(statement, 0));
+			stageEnemy.emplace_back(CharacterID_Util::ToEnum(enemyIDStr));
+		}
 
-	case 3:
-		stageEnemy.emplace_back(CharacterID::PunchBound);
-		stageEnemy.emplace_back(CharacterID::PunchBound2);
-		stageEnemy.emplace_back(CharacterID::ShotBound);
-		stageEnemy.emplace_back(CharacterID::ShotBound2);
-		stageEnemy.emplace_back(CharacterID::MagicBound);
-		stageEnemy.emplace_back(CharacterID::MagicBound2);
-		stageEnemy.emplace_back(CharacterID::BadBat);
-		break;
-
-	case 4:
-		stageEnemy.emplace_back(CharacterID::PunchBound2);
-		stageEnemy.emplace_back(CharacterID::PunchBound3);
-		stageEnemy.emplace_back(CharacterID::ShotBound2);
-		stageEnemy.emplace_back(CharacterID::ShotBound3);
-		stageEnemy.emplace_back(CharacterID::MagicBound2);
-		stageEnemy.emplace_back(CharacterID::MagicBound3);
-		stageEnemy.emplace_back(CharacterID::BadBat);
-		break;
+		sqlite3_finalize(statement);
+		sqlite3_close(sql3);
 	}
 
 	float rand = random<float>(0.0f, 1.0f);

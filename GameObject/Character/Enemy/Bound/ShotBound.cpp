@@ -1,12 +1,12 @@
-#include "GameObject/Character/Enemy/Bound/ShotBound.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "GameObject/Attack/Attack_DirtShot.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
+#include "ShotBound.hpp"
+#include "Player.hpp"
+#include "Attack_DirtShot.hpp"
+#include "ObjectLayer.hpp"
 #include "myutil.hpp"
-#include "Factory/ItemFactory.hpp"
+#include "ItemFactory.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "SoundManager.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 
@@ -70,6 +70,8 @@ bool ShotBound::init(ObjectLayer* objectLayer, CharacterID charaID, int level, c
 			animspeed * 3,
 			[this, dir, charaData](Node*)
 		{
+			SoundManager::getInstance()->Play2DSound(SoundID::Bound_Shot);
+
 			Attack_DirtShot* shot = Attack_DirtShot::create(GetCharaID(), GetObjectLayer(), getPosition(), dir, charaData["ShotSpd"], charaData["ShotDmg"], 0.2f, 20.0f, SoundID::HitSound_DirtShot);
 			GetObjectLayer()->AddFieldObject(shot);
 		});

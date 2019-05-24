@@ -1,12 +1,12 @@
-#include "Item/Item_AssaultRifle.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "GameObject/Attack/Attack_Bullet.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
+#include "Item_AssaultRifle.hpp"
+#include "Player.hpp"
+#include "Attack_Bullet.hpp"
+#include "ItemLayer.hpp"
+#include "ObjectLayer.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Factory/EffectFactory.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
+#include "EffectFactory.hpp"
+#include "SoundManager.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 

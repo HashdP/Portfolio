@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "Item/Item.hpp"
+#include "Item.hpp"
 #include <array>
 
 class ObjectLayer;
@@ -21,7 +21,7 @@ public:
 	bool init(GUILayer* guiLayer);
 
 
-	bool IsExistItem(ItemID itemID, int num);
+	int IsExistItem(ItemID itemID, int num);
 	bool IsExistItemEmpty(ItemID itemID, int num);
 
 	void SetItem(int index, bool playSound = true);

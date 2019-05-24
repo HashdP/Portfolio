@@ -1,4 +1,5 @@
 #include "StateAnimationSprite.hpp"
+#include "SoundManager.hpp"
 
 USING_NS_CC;
 
@@ -43,7 +44,6 @@ void StateAnimationSprite::SetAnimFunc(std::string key, float interval, const st
 void StateAnimationSprite::SetStateAnimation(std::string key)
 {
 	//現在のstateと異なる場合はアニメーションを変更する
-
 	if (animState != key && animations.find(key) != animations.cend())
 	{
 		this->stopAllActionsByTag(1);

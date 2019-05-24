@@ -1,4 +1,4 @@
-#include "Manager/InputManager.hpp"
+#include "InputManager.hpp"
 
 USING_NS_CC;
 
@@ -101,6 +101,8 @@ void InputManager::OnKeyEvent(EventKeyboard::KeyCode keyCode, InputState state)
 		states[(int)InputCode::KEY_T] = state;
 	if (keyCode == EventKeyboard::KeyCode::KEY_C)
 		states[(int)InputCode::KEY_C] = state;
+	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+		states[(int)InputCode::KEY_Q] = state;
 	if (keyCode == EventKeyboard::KeyCode::KEY_SHIFT)
 		states[(int)InputCode::KEY_SHIFT] = state;
 	if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)

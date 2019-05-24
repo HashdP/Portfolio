@@ -1,15 +1,16 @@
-#include "GameObject/Character/Enemy/MossRat/MossRat.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Scene_GamePlay/HPGauge.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Field/Area/Area.hpp"
-#include "Factory/ItemFactory.hpp"
+#include "MossRat.hpp"
+#include "Player.hpp"
+#include "HPGauge.hpp"
+#include "ObjectLayer.hpp"
+#include "Floor.hpp"
+#include "Area.hpp"
+#include "ItemFactory.hpp"
 #include "myutil.hpp"
-#include "GameObject/Attack/Attack_Punch.hpp"
-#include "GameObject/Attack/Attack_FireBall.hpp"
+#include "Attack_Punch.hpp"
+#include "Attack_FireBall.hpp"
 #include "StateAnimationSprite.hpp"
-#include "Manager/SoundManager.hpp"
+#include "SoundManager.hpp"
+#include "CharaData.hpp"
 
 USING_NS_CC;
 
@@ -31,7 +32,7 @@ MossRat* MossRat::create(ObjectLayer* objectLayer, const CharaData& charaData)
 
 bool MossRat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 {
-	if (!Enemy::init(objectLayer, CharacterID::MossRat, charaData, random<float>(0.5f, 2.5f), random<float>(7.5f, 17.5f)))
+	if (!Enemy::init(objectLayer, CharacterID::MossRat, charaData, 1.0f, random<float>(7.5f, 17.5f)))
 		return false;
 
 	GetSprite()->RegisterStateAnimation("Stay_" + myutil::GetDirectionStr(Direction::Front), false, myutil::CreateStateAnimation("Images/Character/mossrat.png", 0.15f, 0, 2, 96, 96));
@@ -44,11 +45,14 @@ bool MossRat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 	GetSprite()->RegisterStateAnimation("Move_" + myutil::GetDirectionStr(Direction::Left), false, myutil::CreateStateAnimation("Images/Character/mossrat.png", 0.1f, 14, 4, 96, 96));
 	GetSprite()->RegisterStateAnimation("Move_" + myutil::GetDirectionStr(Direction::Right), true, myutil::CreateStateAnimation("Images/Character/mossrat.png", 0.1f, 14, 4, 96, 96));
 
+	//ï‡Ç≠âπ
+	SetStateSound("Move", SoundComponent::create(SoundID::MossRat_Move, 0.0f, 0.32f));
+
 	//çUåÇÇçÏê¨Ç∑ÇÈ
 	float atkSpeed = 0.1f;
-	for (int i = 0; i < (int)Direction::Num; ++i)
+	for (int i = 0; i < static_cast<int>(Direction::Num); ++i)
 	{
-		Direction dir = (Direction)i;
+		Direction dir = static_cast<Direction>(i);
 
 		//çUåÇÇPÇçÏê¨Ç∑ÇÈ
 		int startNum = 26;
@@ -62,9 +66,11 @@ bool MossRat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 		GetSprite()->SetAnimFunc(
 			"Attack_" + myutil::GetDirectionStr(dir),
 			atkSpeed * 3,
-			[this, dir](Node*)
+			[this, dir, charaData](Node*)
 		{
-			Attack_Punch* punch = Attack_Punch::create(GetCharaID(), GetObjectLayer(), getPosition(), dir, 5, 0.3f, 10.0f, SoundID::HitSound_PlayerPunch);
+			SoundManager::getInstance()->Play2DSound(SoundID::MossRat_Attack);
+
+			Attack_Punch* punch = Attack_Punch::create(GetCharaID(), GetObjectLayer(), getPosition(), dir, charaData["SlashDmg"], charaData["SlashFrz"], charaData["SlashKb"], SoundID::HitSound_MossRatPunch);
 			GetObjectLayer()->AddFieldObject(punch);
 		});
 
@@ -73,13 +79,15 @@ bool MossRat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 		{
 			Animation* attack2Anim = myutil::CreateStateAnimation("Images/Character/mossrat.png", atkSpeed, 4, 2, 96, 96);
 			for (int i = 0; i < 15; ++i) myutil::AddStateAnimation(attack2Anim, "Images/Character/mossrat.png", 4, 2, 96, 96);
-			GetSprite()->RegisterStateAnimation("Attack2_" + myutil::GetDirectionStr(dir), reverseFlag, attack2Anim, [this](Node*) { ChangeToType(); });
+			GetSprite()->RegisterStateAnimation("Attack2_" + myutil::GetDirectionStr(dir), reverseFlag, attack2Anim, [this](Node*) { Freeze(2.0f); });
 
 			GetSprite()->SetAnimFunc(
 				"Attack2_" + myutil::GetDirectionStr(dir),
 				0.0f,
-				[this, dir](Node*)
+				[this, dir, charaData](Node*)
 			{
+				SoundManager::getInstance()->Play2DSound(SoundID::MossRat_Magic);
+
 				ParticleSystemQuad* particle = ParticleSystemQuad::create("Particle/mossrat_attack2_particle.plist");
 				particle->setAutoRemoveOnFinish(true);
 				particle->resetSystem();
@@ -92,21 +100,24 @@ bool MossRat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 					Sequence::create(
 						DelayTime::create(0.5f),
 						CallFuncN::create(
-							[this](Node*)
+							[this, charaData](Node*)
 				{
-					Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + Vec2(0, 20), GetDirection(), 2, 0.3f, 10.0f, SoundID::HitSound_Bullet);
+
+					SoundManager::getInstance()->Play2DSound(SoundID::Bound_Magic);
+					Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + Vec2(0, 20), GetDirection(), charaData["MagicDmg"], 0.3f, 10.0f, SoundID::HitSound_Bullet);
 					GetObjectLayer()->AddFieldObject(shot);
 				}),
 						DelayTime::create(0.5f),
 					CallFuncN::create(
-						[this](Node*)
+						[this, charaData](Node*)
 				{
-					Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + Vec2(0, -20), GetDirection(), 2, 0.3f, 10.0f, SoundID::HitSound_Bullet);
+					SoundManager::getInstance()->Play2DSound(SoundID::Bound_Magic);
+					Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + Vec2(0, -20), GetDirection(), charaData["MagicDmg"], 0.3f, 10.0f, SoundID::HitSound_Bullet);
 					GetObjectLayer()->AddFieldObject(shot);
 				}),
 					DelayTime::create(0.5f),
 					CallFuncN::create(
-						[this](Node*)
+						[this, charaData](Node*)
 				{
 					Vec2 dif = Vec2::ZERO;
 					if (GetDirection() == Direction::Right)
@@ -114,7 +125,8 @@ bool MossRat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 					else
 						dif = Vec2(-25, 0);
 
-					Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + dif, GetDirection(), 2, 0.3f, 10.0f, SoundID::HitSound_Bullet);
+					SoundManager::getInstance()->Play2DSound(SoundID::Bound_Magic);
+					Attack_FireBall* shot = Attack_FireBall::create(GetCharaID(), GetObjectLayer(), getPosition() + dif, GetDirection(), charaData["MagicDmg"], 0.3f, 10.0f, SoundID::HitSound_Bullet);
 					GetObjectLayer()->AddFieldObject(shot);
 				}),
 						NULL
@@ -134,9 +146,9 @@ bool MossRat::init(ObjectLayer* objectLayer, const CharaData& charaData)
 
 void MossRat::CharacterUpdate(float delta)
 {
-	if (actionType == 0)
+	if (GetState() != "Attack" && GetState() != "Attack2")
 	{
-		if (GetState() != "Attack")
+		if (actionType == 0)
 		{
 			const Player& player = GetObjectLayer()->GetConstPlayer();
 			Direction dir = myutil::GetTargetDir(this->getPosition(), player.getPosition());
@@ -166,10 +178,7 @@ void MossRat::CharacterUpdate(float delta)
 
 			SetState("Move");
 		}
-	}
-	else if (actionType == 1)
-	{
-		if (GetState() != "Attack2")
+		else if (actionType == 1)
 		{
 			if (GetMoveAI().IsArrive())
 			{
@@ -178,6 +187,8 @@ void MossRat::CharacterUpdate(float delta)
 					SetDirection(Direction::Right);
 				else
 					SetDirection(Direction::Left);
+
+				ChangeToType();
 
 				SetState("Attack2");
 				return;
@@ -193,12 +204,6 @@ void MossRat::CharacterUpdate(float delta)
 			SetState("Move");
 		}
 	}
-}
-
-void MossRat::OnRemove()
-{
-	if (GetBossFlag())
-		ItemFactory::getInstance()->CreateDropItemOnFloor(GetObjectLayer(), this->getPosition(), ItemID::OrangeBall, 1);
 }
 
 void MossRat::ChangeToType()
@@ -220,7 +225,18 @@ void MossRat::ChangeToType()
 	{
 		actionType = 0;
 		changeTypeProb = 0.0f;
+	}
+}
 
-		Freeze(2.0f);
+void MossRat::Damage(int damage, float freeze, const cocos2d::Vec2& knockBack)
+{
+	if (GetState() == "Attack2")
+	{
+		//StateÇ™Attack2ÇÃèÍçáÇÕFreezeÇµÇ»Ç¢
+		Enemy::Damage(damage, 0.0f, Vec2::ZERO);
+	}
+	else
+	{
+		Enemy::Damage(damage, freeze, knockBack);
 	}
 }

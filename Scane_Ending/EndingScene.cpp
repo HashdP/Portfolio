@@ -1,6 +1,6 @@
-#include "Scane_Ending/EndingScene.hpp"
+#include "EndingScene.hpp"
 #include "MyScene.hpp"
-#include "Scane_Ending/Layer/EndingLayer.hpp"
+#include "EndingLayer.hpp"
 
 USING_NS_CC;
 

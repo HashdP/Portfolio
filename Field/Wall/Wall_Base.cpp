@@ -1,5 +1,5 @@
-#include "Field/Wall/Wall_Base.hpp"
-#include "Scene_GamePlay/Light.hpp"
+#include "Wall_Base.hpp"
+#include "Light.hpp"
 
 USING_NS_CC;
 

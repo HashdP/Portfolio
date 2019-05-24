@@ -1,24 +1,24 @@
 #pragma execution_character_set("utf-8")
 
-#include "GameObject/Character/Player.hpp"
-#include "Manager/InputManager.hpp"
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/Layer/GUILayer.hpp"
-#include "Scene_GamePlay/Layer/ItemLayer.hpp"
-#include "Scene_GamePlay/Route.hpp"
+#include "Player.hpp"
+#include "InputManager.hpp"
+#include "ObjectLayer.hpp"
+#include "GUILayer.hpp"
+#include "ItemLayer.hpp"
+#include "Route.hpp"
 #include "myutil.hpp"
 #include "StateAnimationSprite.hpp"
-#include "GameObject/Attack/Attack_Punch.hpp"
-#include "Scane_Ending/EndingScene.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Field/Area/Area.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Item/Item_HandGun.hpp"
-#include "Item/Item_AssaultRifle.hpp"
-#include "Factory/ItemFactory.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
-#include "Manager/GameManager.hpp"
+#include "Attack_Punch.hpp"
+#include "EndingScene.hpp"
+#include "SoundManager.hpp"
+#include "Area.hpp"
+#include "Floor.hpp"
+#include "MapNode.hpp"
+#include "Item_HandGun.hpp"
+#include "Item_AssaultRifle.hpp"
+#include "ItemFactory.hpp"
+#include "CharaData.hpp"
+#include "GameManager.hpp"
 
 USING_NS_CC;
 
@@ -66,6 +66,9 @@ bool Player::init(ObjectLayer* objectLayer, ItemLayer* itemLayer, const CharaDat
 		GetSprite()->RegisterStateAnimation("Run_" + myutil::GetDirectionStr(dir), false, run);
 	}
 	GetSprite()->setAnchorPoint(Vec2(0.5f, 0.07f));
+
+	SetStateSound("Walk", SoundComponent::create(SoundID::Player_Walk, 0.0f, 10.3f));
+	SetStateSound("Run", SoundComponent::create(SoundID::Player_Run, 0.0f, 11.65f));
 
 	hukidashi = nullptr;
 
@@ -136,11 +139,11 @@ void Player::SetState(std::string state, bool changeAnimation)
 
 		if (state == "Run")
 		{
-			audioID = SoundManager::getInstance()->Play2DSound(SoundID::Player_Run, true);
+			//audioID = SoundManager::getInstance()->Play2DSound(SoundID::Player_Run, true);
 		}
 		else if (state == "Walk")
 		{
-			audioID = SoundManager::getInstance()->Play2DSound(SoundID::Player_Walk, true);
+			//audioID = SoundManager::getInstance()->Play2DSound(SoundID::Player_Walk, true);
 		}
 	}
 

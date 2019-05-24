@@ -1,8 +1,8 @@
 #pragma execution_character_set("utf-8")
 
-#include "Scene_GamePlay/ChangeAreaArrow.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Scene_GamePlay/Route.hpp"
+#include "ChangeAreaArrow.hpp"
+#include "MapNode.hpp"
+#include "Route.hpp"
 
 USING_NS_CC;
 

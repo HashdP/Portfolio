@@ -1,25 +1,25 @@
 #pragma execution_character_set("utf-8")
 
-#include "Scene_GamePlay/Layer/ObjectLayer.hpp"
-#include "Scene_GamePlay/Layer/ControllLayer.hpp"
-#include "Scene_GamePlay/Layer/OtherWindowLayer/WorkshopLayer.hpp"
-#include "GameObject/Character/Player.hpp"
-#include "Scene_GamePlay/Floor.hpp"
-#include "Scene_GamePlay/Light.hpp"
-#include "Factory/CharacterFactory.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Scene_GamePlay/Route.hpp"
-#include "myutil.hpp"
-#include "Scene_GamePlay/ChangeAreaArrow.hpp"
-#include "Field/Wall/Wall_Base.hpp"
-#include "Field/Wall/Wall_Route.hpp"
-#include "Field/Wall/Wall_Boss.hpp"
-#include "Field/Area/Area_Boss.hpp"
-#include "Field/Area/Area_Base.hpp"
-#include "Field/SideFloor.hpp"
+#include "ObjectLayer.hpp"
+#include "ControllLayer.hpp"
+#include "WorkshopLayer.hpp"
+#include "Floor.hpp"
+#include "Light.hpp"
+#include "MapNode.hpp"
+#include "Route.hpp"
+#include "ChangeAreaArrow.hpp"
+#include "CharaData.hpp"
+#include "Wall_Base.hpp"
+#include "Wall_Route.hpp"
+#include "Wall_Boss.hpp"
+#include "Area_Boss.hpp"
+#include "Area_Base.hpp"
+#include "SideFloor.hpp"
+#include "CharacterFactory.hpp"
+#include "Player.hpp"
 #include "Conversation.hpp"
+#include "myutil.hpp"
 #include "SaveData.hpp"
-#include "Scene_GamePlay/CharaData.hpp"
 
 USING_NS_CC;
 
@@ -335,7 +335,7 @@ void ObjectLayer::CreateField(const cocos2d::Vec2& playerPosition, std::shared_p
 		{
 		case RouteState::Dirt:
 			if (currentMap->GetLengthFromBase() == 0)
-				area->GetFloor(sideX, sideY)->SetFloorEvent("「" + WorkshopLayer::GetCreateItemName(ItemID::GreenSpray) + "」を「左クリック」して「E」で使用");
+				area->GetFloor(sideX, sideY)->SetFloorEvent("「" + WorkshopLayer::GetCreateItemName(ItemID::GreenSpray) + "」が必要だ。");
 			else
 				area->GetFloor(sideX, sideY)->SetFloorEvent("汚れがひどい。敵をすべて倒そう。");;
 			break;

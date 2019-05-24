@@ -1,7 +1,7 @@
-#include "Field/SideFloor.hpp"
-#include "Scene_GamePlay/MapNode.hpp"
-#include "Scene_GamePlay/Route.hpp"
-#include "Scene_GamePlay/Floor.hpp"
+#include "SideFloor.hpp"
+#include "MapNode.hpp"
+#include "Route.hpp"
+#include "Floor.hpp"
 
 SideFloor* SideFloor::create(MapNode& mapNode)
 {

@@ -1,6 +1,6 @@
 #pragma once
-#include "GameObject/GameObject.hpp"
-#include "Item/Item.hpp"
+#include "GameObject.hpp"
+#include "Item.hpp"
 
 class ItemLayer;
 

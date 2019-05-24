@@ -9,7 +9,7 @@ private:
 	struct AnimationData
 	{
 		AnimationData() = default;
-		AnimationData(bool reverse, cocos2d::Action* animation) : reverse(reverse), animation(myutil::make_cocos_unique_ref<cocos2d::Action>(animation)) {}
+		AnimationData(bool reverse, cocos2d::Action* animation):reverse(reverse), animation(myutil::make_cocos_unique_ref<cocos2d::Action>(animation)) {}
 
 		//”½“]‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
 		bool reverse = false;

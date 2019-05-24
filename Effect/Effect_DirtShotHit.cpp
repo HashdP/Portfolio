@@ -1,5 +1,5 @@
-#include "Effect/Effect_DirtShotHit.hpp"
-#include "Scene_GamePlay/Light.hpp"
+#include "Effect_DirtShotHit.hpp"
+#include "Light.hpp"
 
 USING_NS_CC;
 

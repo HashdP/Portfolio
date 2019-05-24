@@ -1,6 +1,6 @@
 #pragma once
-#include "GameObject/Character/Enemy/Bound/Bound.hpp"
-#include "Scene_GamePlay/MoveAI.hpp"
+#include "Bound.hpp"
+#include "MoveAI.hpp"
 
 class ShotBound : public Bound
 {

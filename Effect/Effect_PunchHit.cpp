@@ -1,4 +1,4 @@
-#include "Effect/Effect_PunchHit.hpp"
+#include "Effect_PunchHit.hpp"
 
 USING_NS_CC;
 
